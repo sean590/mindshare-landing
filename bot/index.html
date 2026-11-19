@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>MindshrBot</title>
-<meta name="description" content="MindshrBot is the web crawler for Mindshr. What it does, how it behaves, how to block it, and how to contact us.">
+<meta name="description" content="MindshrBot is the web crawler for Mindshr. What it does, how it behaves, how to recognise it, how to control it, and how to contact us.">
 <meta name="color-scheme" content="light dark">
 <style>
   body {
@@ -31,36 +31,46 @@
 <body>
 
 <h1>MindshrBot</h1>
-<p>MindshrBot is the web crawler for Mindshr, a data service that counts public mentions of companies and products in the news.</p>
+<p>MindshrBot is the web crawler for Mindshr. Mindshr gathers public facts and figures from across the web and organises them into one consistent, queryable dataset, so that people and the applications they build can answer questions with real numbers and see where each number came from.</p>
 
-<h2>What it does</h2>
-<p>It fetches publicly available news and other public pages to count which companies and products they mention.</p>
-
-<h2>How it behaves</h2>
+<h2>What we do with a page</h2>
 <ul>
-  <li>It obeys <code>robots.txt</code>, including <code>Crawl-delay</code>.</li>
-  <li>It makes no more than one request every few seconds to any site.</li>
-  <li>It does not log in and does not go behind paywalls.</li>
-  <li>It identifies itself in every request with this user agent:</li>
-</ul>
-<pre>MindshrBot/0.1 (+https://mindshr.ai/bot; bot@mindshr.ai)</pre>
-
-<h2>What we do with page content</h2>
-<ul>
-  <li>We read the page to count which companies and products it mentions.</li>
-  <li>We keep a private copy so we can re-check those counts.</li>
-  <li>We never republish, sell or share article text. The only thing we publish is numbers: how many articles mentioned something on a given day.</li>
-  <li>We use automated tools, including AI models, to work out which company a mention refers to.</li>
+  <li>We read it for the facts and figures on it, and record them with the page's address, title and date.</li>
+  <li>Every figure stays tied to its source. When Mindshr gives an answer, it names the page the figure came from and links to it.</li>
+  <li>We never republish, sell or share the content of pages or articles. A private copy is kept only so we can recheck and correct our data.</li>
   <li>We do not use page content to train generative AI models.</li>
+  <li>We use automated tools, including AI models, only to read figures off a page and to work out what they refer to.</li>
 </ul>
 
-<h2>How to block it</h2>
-<p>Add this to your <code>robots.txt</code>:</p>
+<h2>How the crawler behaves</h2>
+<ul>
+  <li>It obeys <code>robots.txt</code>, including <code>Crawl-delay</code>, under the name <code>MindshrBot</code>.</li>
+  <li>It makes at most one request every five seconds to a site, and backs off when asked (a 429 response or a <code>Retry-After</code> header).</li>
+  <li>It does not log in and does not go behind paywalls. On paywalled sites it reads headlines from public feeds only.</li>
+  <!-- NOT YET AGREED. Publishing this rules out ever switching on an unblocker:
+  <li>It makes no attempt to get round a block. If your site refuses it, it stops.</li>
+  -->
+</ul>
+
+<h2>How to recognise it</h2>
+<p>It identifies itself in every request with this user agent:</p>
+<pre>MindshrBot/0.1 (+https://mindshr.ai/bot; bot@mindshr.ai)</pre>
+<!-- NOT YET TRUE. Uncomment each line when it is live:
+<ul>
+  <li>IP addresses: every request comes from the addresses listed at <a href="https://mindshr.ai/bot/ips.json">mindshr.ai/bot/ips.json</a>.</li>
+  <li>Signed requests: each request carries a Web Bot Auth signature. Our public keys are at <a href="https://mindshr.ai/.well-known/http-message-signatures-directory">mindshr.ai/.well-known/http-message-signatures-directory</a>.</li>
+</ul>
+<p>A request that claims to be MindshrBot but fails these checks is not ours.</p>
+-->
+
+<h2>How to control it</h2>
+<p>To stop it entirely, add this to your <code>robots.txt</code>:</p>
 <pre>User-agent: MindshrBot
 Disallow: /</pre>
+<p>You can also disallow part of your site or set a <code>Crawl-delay</code>. Changes take effect within 24 hours.</p>
 
 <h2>Contact</h2>
-<p><a href="mailto:bot@mindshr.ai">bot@mindshr.ai</a>. We respond to requests to slow down or stop.</p>
+<p><a href="mailto:bot@mindshr.ai">bot@mindshr.ai</a>. Write to us to slow the crawler down, to stop it, or to let it in if your site currently blocks it. We respond to every request.</p>
 
 <footer>Mindshr · mindshr.ai</footer>
 
