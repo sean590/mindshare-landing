@@ -47,21 +47,16 @@
   <li>It obeys <code>robots.txt</code>, including <code>Crawl-delay</code>, under the name <code>MindshrBot</code>.</li>
   <li>It makes at most one request every five seconds to a site, and backs off when asked (a 429 response or a <code>Retry-After</code> header).</li>
   <li>It does not log in and does not go behind paywalls. On paywalled sites it reads headlines from public feeds only.</li>
-  <!-- NOT YET AGREED. Publishing this rules out ever switching on an unblocker:
   <li>It makes no attempt to get round a block. If your site refuses it, it stops.</li>
-  -->
 </ul>
 
 <h2>How to recognise it</h2>
 <p>It identifies itself in every request with this user agent:</p>
 <pre>MindshrBot/0.1 (+https://mindshr.ai/bot; bot@mindshr.ai)</pre>
-<!-- NOT YET TRUE. Uncomment each line when it is live:
 <ul>
-  <li>IP addresses: every request comes from the addresses listed at <a href="https://mindshr.ai/bot/ips.json">mindshr.ai/bot/ips.json</a>.</li>
-  <li>Signed requests: each request carries a Web Bot Auth signature. Our public keys are at <a href="https://mindshr.ai/.well-known/http-message-signatures-directory">mindshr.ai/.well-known/http-message-signatures-directory</a>.</li>
+  <li>Signed requests: each request carries a Web Bot Auth signature. Our public keys are at <a href="https://bot-keys.mindshr.ai/.well-known/http-message-signatures-directory">bot-keys.mindshr.ai/.well-known/http-message-signatures-directory</a>.</li>
 </ul>
-<p>A request that claims to be MindshrBot but fails these checks is not ours.</p>
--->
+<p>A request that claims to be MindshrBot but fails this check is not ours.</p>
 
 <h2>How to control it</h2>
 <p>To stop it entirely, add this to your <code>robots.txt</code>:</p>
